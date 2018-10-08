@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Second project from Hexlet",
   "main": "index.js",
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
   "files": [
     "dist"
   ],
