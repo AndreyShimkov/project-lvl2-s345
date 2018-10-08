@@ -7,7 +7,7 @@ commander
   .version(version)
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
-  .arguments('<firstconfig>, <secondconfig>')
+  .arguments('<firstconfig>, <secondconfig>');
 
 // console.log(commander.args); // служебная строка, будет удалена
 
