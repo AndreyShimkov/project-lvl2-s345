@@ -2,4 +2,4 @@
 
 import commander from '../commander/commander';
 
-commander.help();
+commander.parse(process.argv);
