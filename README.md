@@ -5,7 +5,14 @@
 
 ## Install
 
-## Contents
+> npm i -g gendiff_avs
+
+## Get help
+
+> gendiff -h
+
+[![asciicast](https://asciinema.org/a/xFBAVxxPglyFzGMGMXmV7mYEJ.png)](https://asciinema.org/a/xFBAVxxPglyFzGMGMXmV7mYEJ)
 
 ## Using
 
+coming soon
