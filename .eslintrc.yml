@@ -1,0 +1,14 @@
+extends: airbnb-base
+
+plugins: 
+  - babel
+
+parser: babel-eslint
+
+env:
+  node: true
+  browser: true
+
+rules:
+  no-console: 0
+  linebreak-style: 0
