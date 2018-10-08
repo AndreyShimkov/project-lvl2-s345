@@ -9,6 +9,4 @@ commander
   .option('-f, --format [type]', 'output format')
   .arguments('<firstconfig>, <secondconfig>');
 
-// console.log(commander.args); // служебная строка, будет удалена
-
 export default commander;
