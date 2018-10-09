@@ -13,11 +13,18 @@ const genDiff = ([firstConfigPath, secondConfigPath]) => {
   const secondData = parse(secondConfigPath);
 
   const firstKeys = Object.keys(firstData);
-  //  const secondKeys = Object.keys(secondData);
+  const secondKeys = Object.keys(secondData);
 
-  const res1 = firstKeys.map(v => (has(secondData, v) ? 'change' : ` - ${v}: ${firstData[v]}`)).join('\n');
+  const change = (obj1, obj2, key) => (obj1[key] === obj2[key] ? `    ${key}: ${obj1[key]}` : `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`);
 
-  return res1;
+  const res1 = firstKeys.map(v => (has(secondData, v) ? change(firstData, secondData, v) : `  - ${v}: ${firstData[v]}`)).join('\n');
+
+  const filtered = secondKeys.filter(v => !has(firstData, v));
+
+  const res2 = filtered.map(v => `  + ${v}: ${secondData[v]}`).join('\n');
+
+  const result = `{\n${[res1, res2].join('\n')}\n}`;
+  return result;
 };
 
 export default genDiff;

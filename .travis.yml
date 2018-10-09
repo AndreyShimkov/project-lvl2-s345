@@ -4,3 +4,4 @@ nodejs: node
 
 script:
   - make lint
+  - make test
