@@ -1,12 +1,12 @@
 
-import { version } from '../../package.json';
+import commander from 'commander';
 
-const commander = require('commander');
+import { version } from '../package.json';
 
 commander
   .version(version)
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
-  .arguments('<firstconfig>, <secondconfig>');
+  .arguments('<firstConfig>, <secondConfig>');
 
 export default commander;
