@@ -7,6 +7,9 @@ const afterJSON = '__tests__/__fixtures__/after.json';
 const beforeYAML = '__tests__/__fixtures__/before.yml';
 const afterYAML = '__tests__/__fixtures__/after.yml';
 
+const beforeINI = '__tests__/__fixtures__/before.ini';
+const afterINI = '__tests__/__fixtures__/after.ini';
+
 const resultPath = '__tests__/__fixtures__/result1.txt';
 
 const allTests = () => {
@@ -19,6 +22,7 @@ const allTests = () => {
   };
   singleTest('JSON', beforeJSON, afterJSON);
   singleTest('YAML', beforeYAML, afterYAML);
+  singleTest('INI', beforeINI, afterINI);
 };
 
 allTests();

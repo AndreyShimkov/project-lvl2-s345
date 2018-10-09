@@ -28,6 +28,7 @@
   "homepage": "https://github.com/AndreyShimkov/project-lvl2-s345#readme",
   "dependencies": {
     "commander": "^2.19.0",
+    "ini": "^1.3.5",
     "js-yaml": "^3.12.0",
     "lodash": "^4.17.11"
   },
