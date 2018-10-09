@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import commander from '../cli.js';
+import commander from '../cli';
 import genDiff from '..';
 
 commander.parse(process.argv);
