@@ -31,11 +31,12 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
