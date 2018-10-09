@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-// import { has } from 'lodash';
+import { has } from 'lodash';
 
 const genDiff = ([firstConfigPath, secondConfigPath]) => {
   const parse = (path) => {
@@ -12,7 +12,12 @@ const genDiff = ([firstConfigPath, secondConfigPath]) => {
   const firstData = parse(firstConfigPath);
   const secondData = parse(secondConfigPath);
 
-  return `${firstData} + ${secondData}`;
+  const firstKeys = Object.keys(firstData);
+  //  const secondKeys = Object.keys(secondData);
+
+  const res1 = firstKeys.map(v => (has(secondData, v) ? 'change' : ` - ${v}: ${firstData[v]}`)).join('\n');
+
+  return res1;
 };
 
 export default genDiff;
