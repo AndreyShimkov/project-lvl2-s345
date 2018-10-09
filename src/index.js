@@ -1,22 +1,41 @@
-import { has } from 'lodash';
+import fs from 'fs';
+import path from 'path';
+import _ from 'lodash';
 import parse from './parsers';
 
+const readData = (pathToFile) => {
+  const read = fs.readFileSync(pathToFile, 'utf-8');
+  const extname = path.extname(pathToFile);
+  return parse(read, extname);
+};
+
 const genDiff = ([firstConfigPath, secondConfigPath]) => {
-  const firstData = parse(firstConfigPath);
-  const secondData = parse(secondConfigPath);
+  const firstData = readData(firstConfigPath);
+  const secondData = readData(secondConfigPath);
 
   const firstKeys = Object.keys(firstData);
   const secondKeys = Object.keys(secondData);
 
-  const change = (obj1, obj2, key) => (obj1[key] === obj2[key] ? `    ${key}: ${obj1[key]}` : `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`);
+  const allKeys = _.union(firstKeys, secondKeys);
 
-  const res1 = firstKeys.map(v => (has(secondData, v) ? change(firstData, secondData, v) : `  - ${v}: ${firstData[v]}`)).join('\n');
+  const changeCombinedValue = (key) => {
+    if (_.has(firstData, key) && _.has(secondData, key) && (firstData[key] === secondData[key])) {
+      return `    ${key}: ${firstData[key]}`;
+    }
+    if (_.has(firstData, key) && !_.has(secondData, key)) {
+      return `  - ${key}: ${firstData[key]}`;
+    }
+    if (!_.has(firstData, key) && _.has(secondData, key)) {
+      return `  + ${key}: ${secondData[key]}`;
+    }
+    if (!_.has(firstData, key) && !_.has(secondData, key)) {
+      return '';
+    }
+    return `  - ${key}: ${firstData[key]}\n  + ${key}: ${secondData[key]}`;
+  };
 
-  const filtered = secondKeys.filter(v => !has(firstData, v));
+  const result = `{\n${allKeys.map(changeCombinedValue).join('\n')}\n}`;
 
-  const res2 = filtered.map(v => `  + ${v}: ${secondData[v]}`).join('\n');
-
-  const result = `{\n${[res1, res2].join('\n')}\n}`;
   return result;
 };
 
