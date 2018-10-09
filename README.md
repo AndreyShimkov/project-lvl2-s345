@@ -15,4 +15,10 @@
 
 ## Using
 
+JSON documents:
+
 [![asciicast](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR.png)](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR)
+
+YAML documents:
+
+[![asciicast](https://asciinema.org/a/pOQiovekD4DoVSoWnklnM9WbJ.png)](https://asciinema.org/a/pOQiovekD4DoVSoWnklnM9WbJ)
