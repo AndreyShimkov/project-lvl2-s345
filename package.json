@@ -1,6 +1,6 @@
 {
   "name": "gendiff_avs",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Second project from Hexlet",
   "main": "index.js",
   "bin": {
