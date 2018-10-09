@@ -15,4 +15,4 @@
 
 ## Using
 
-coming soon
+[![asciicast](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR.png)](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR)
