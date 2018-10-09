@@ -2,9 +2,9 @@ import fs from 'fs';
 
 import genDiff from '../src';
 
-const before = '__tests__/__fixtures__/before.JSON';
+const before = '__tests__/__fixtures__/before.json';
 
-const after = '__tests__/__fixtures__/after.JSON';
+const after = '__tests__/__fixtures__/after.json';
 
 const resultPath = '__tests__/__fixtures__/result.txt';
 
