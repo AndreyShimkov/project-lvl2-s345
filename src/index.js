@@ -9,7 +9,7 @@ const readData = (pathToFile) => {
   return parse(read, extname);
 };
 
-const genDiff = ([firstConfigPath, secondConfigPath]) => {
+const genDiff = (firstConfigPath, secondConfigPath) => {
   const firstData = readData(firstConfigPath);
   const secondData = readData(secondConfigPath);
 

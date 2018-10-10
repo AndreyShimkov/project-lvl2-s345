@@ -17,7 +17,7 @@ const allTests = () => {
 
   const singleTest = (name, before, after) => {
     test(name, () => {
-      expect(genDiff([before, after])).toEqual(result);
+      expect(genDiff(before, after)).toEqual(result);
     });
   };
   singleTest('JSON', beforeJSON, afterJSON);

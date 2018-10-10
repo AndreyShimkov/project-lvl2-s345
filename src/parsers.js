@@ -2,9 +2,9 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 
 const changeParser = {
-  '.json': value => JSON.parse(value),
-  '.yml': value => yaml.safeLoad(value),
-  '.ini': value => ini.parse(value),
+  '.json': JSON.parse,
+  '.yml': yaml.safeLoad,
+  '.ini': ini.parse,
 };
 
 const parse = (read, extname) => {
