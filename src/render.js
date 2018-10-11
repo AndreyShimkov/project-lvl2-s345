@@ -4,7 +4,6 @@ const renderTree = (item, separatorIn) => {
   const itemKeys = Object.keys(item);
   const tree = itemKeys.map((element) => {
     if (typeof item[element] === 'object') {
-      console.log('1!');
       return `${separatorIn}    ${element}: {\n${renderTree(item[element], `${separatorIn}  `)}\n    }`;
     }
     return `{\n${separatorIn}    ${element}: ${item[element]}\n${separatorIn}}`;
