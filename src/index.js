@@ -15,7 +15,7 @@ const changeNode = [
     check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
       && (_.isObject(data1[key]) && _.isObject(data2[key])),
     nodeBuilder: obj => ({
-      type: 'parentNode', name: obj.key, children: [obj.func(obj.oldValue, obj.newValue)],
+      type: 'parentNode', name: obj.key, children: [...obj.func(obj.oldValue, obj.newValue)],
     }),
   }, {
     check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))

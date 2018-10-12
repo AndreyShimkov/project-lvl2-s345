@@ -6,9 +6,9 @@ const path = '__tests__/__fixtures__/';
 const beforeJSON = `${path}before.json`;
 const afterJSON = `${path}after.json`;
 
-// const beforeTreeJSON = `${path}beforeTree.json`;
-// const afterTreeJSON = `${path}afterTree.json`;
-/*
+const beforeTreeJSON = `${path}beforeTree.json`;
+const afterTreeJSON = `${path}afterTree.json`;
+
 const beforeYAML = `${path}before.yml`;
 const afterYAML = `${path}after.yml`;
 
@@ -20,20 +20,20 @@ const afterINI = `${path}after.ini`;
 
 const beforeTreeINI = `${path}beforeTree.ini`;
 const afterTreeINI = `${path}afterTree.ini`;
-*/
+
 const simpleResultPath = `${path}simpleTestResult.txt`;
-// const treeResultPath = `${path}resultTree.txt`;
+const treeResultPath = `${path}resultTree.txt`;
 
 const allTests = () => {
   const simpleResult = fs.readFileSync(simpleResultPath, 'utf-8');
-  // const treeResult = fs.readFileSync(treeResultPath, 'utf-8');
+  const treeResult = fs.readFileSync(treeResultPath, 'utf-8');
   const tests = [
     ['JSON', beforeJSON, afterJSON, simpleResult],
-    // ['YAML', beforeYAML, afterYAML, simpleResult],
-    // ['INI', beforeINI, afterINI, simpleResult],
-    // ['jsonTREE', beforeTreeJSON, afterTreeJSON, treeResult],
-    // ['yamlTREE', beforeTreeYAML, afterTreeYAML, treeResult],
-    // ['iniTREE', beforeTreeINI, afterTreeINI, treeResult],
+    ['YAML', beforeYAML, afterYAML, simpleResult],
+    ['INI', beforeINI, afterINI, simpleResult],
+    ['jsonTREE', beforeTreeJSON, afterTreeJSON, treeResult],
+    ['yamlTREE', beforeTreeYAML, afterTreeYAML, treeResult],
+    ['iniTREE', beforeTreeINI, afterTreeINI, treeResult],
   ];
 
   describe.each(tests)('gendiff test',

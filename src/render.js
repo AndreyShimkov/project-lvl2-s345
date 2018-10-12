@@ -1,30 +1,33 @@
-// import _ from 'lodash';
+import _ from 'lodash';
 
-const renderTree = (subast) => {
-  if (!(Object.prototype.toString.call(subast) === 'object Array')) {
-    return subast;
-  }
-  const result = subast.map(item => ((Object.prototype.toString.call(subast) === 'object Array') ? renderTree(item) : `    ${item.name}: ${item.oldValue}`));
-  return result.join('\n');
+const buildTree = (object, sepor) => {
+  const keys = Object.keys(object);
+  const result = keys.map((key) => {
+    if (_.isObject(object[key])) {
+      return buildTree(object[key], `    ${sepor}`);
+    }
+    return `${key}: ${object[key]}`;
+  });
+  return `{\n${sepor}    ${result}\n${sepor}}`;
 };
 
-const render = (ast) => {
+const render = (ast, separator = '') => {
   const result = ast.map((v) => {
     if (v.type === 'parentNode') {
-      return render(v.children);
+      return `${separator}    ${v.name}: ${render(v.children, `${separator}    `)}`;
     }
     if (v.type === 'newNode') {
-      return `  + ${v.name}: ${(v.newValue)}`;
+      return `${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
     }
     if (v.type === 'deletedNode') {
-      return `  - ${v.name}: ${(v.oldValue)}`;
+      return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`;
     }
-    if (v.type === 'unchangedNode') {
-      return `    ${v.name}: ${v.oldValue}`;
+    if (v.type === 'changedNode') {
+      return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}\n${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
     }
-    return `  - ${v.name}: ${v.oldValue}\n  + ${v.name}: ${v.newValue}`;
+    return `${separator}    ${v.name}: ${v.oldValue}`;
   });
-  return `{\n${result.join('\n')}\n}`;
+  return `{\n${result.join('\n')}\n${separator}}`;
 };
 
 export default render;
