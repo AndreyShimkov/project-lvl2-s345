@@ -27,7 +27,7 @@ const render = (ast, separator = '') => {
         return `${separator}    ${v.name}: ${v.oldValue}`;
     }
   });
-  const result = _.flattenDeep(firstMap);
+  const result = _.flatten(firstMap);
   return `{\n${result.join('\n')}\n${separator}}`;
 };
 
