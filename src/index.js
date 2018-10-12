@@ -10,46 +10,49 @@ const readData = (pathToFile) => {
   return parse(read, extname);
 };
 
+const changeNode = [
+  {
+    check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
+      && (_.isObject(data1[key]) && _.isObject(data2[key])),
+    nodeBuilder: obj => ({
+      type: 'parentNode', name: obj.key, children: [obj.func(obj.oldValue, obj.newValue)],
+    }),
+  }, {
+    check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
+      && (data1[key] === data2[key]),
+    nodeBuilder: obj => ({
+      type: 'unchangedNode', name: obj.key, oldValue: obj.oldValue, children: [],
+    }),
+  }, {
+    check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
+      && (data1[key] !== data2[key]),
+    nodeBuilder: obj => ({
+      type: 'changedNode', name: obj.key, oldValue: obj.oldValue, newValue: obj.newValue, children: [],
+    }),
+  }, {
+    check: (data1, data2, key) => (_.has(data1, key) && !_.has(data2, key)),
+    nodeBuilder: obj => ({
+      type: 'deletedNode', name: obj.key, oldValue: obj.oldValue, children: [],
+    }),
+  }, {
+    check: (data1, data2, key) => (!_.has(data1, key) && _.has(data2, key)),
+    nodeBuilder: obj => ({
+      type: 'newNode', name: obj.key, newValue: obj.newValue, children: [],
+    }),
+  }];
+
 const buildTree = (firstData, secondData) => {
   const firstKeys = Object.keys(firstData);
   const secondKeys = Object.keys(secondData);
   const allKeys = _.union(firstKeys, secondKeys);
 
   const tree = allKeys.map((v) => {
-    const changeNode = [
-      {
-        check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
-          && (_.isObject(data1) && _.isObject(data2)),
-        node: {
-          type: 'unchangedNode', name: v, children: [],
-        },
-      }, {
-        check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
-          && (data1[key] === data2[key]),
-        node: {
-          type: 'unchangedNode', name: v, oldValue: firstData[v], children: [],
-        },
-      }, {
-        check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
-          && (data1[key] !== data2[key]),
-        node: {
-          type: 'changedNode', name: v, oldValue: firstData[v], newValue: secondData[v], children: [],
-        },
-      }, {
-        check: (data1, data2, key) => (_.has(data1, key) && !_.has(data2, key)),
-        node: {
-          type: 'deletedNode', name: v, oldValue: firstData[v], children: [],
-        },
-      }, {
-        check: (data1, data2, key) => (!_.has(data1, key) && _.has(data2, key)),
-        node: {
-          type: 'newNode', name: v, newValue: secondData[v], children: [],
-        },
-      }];
     const find = (data1, data2, key) => changeNode.find(({ check }) => check(data1, data2, key));
-    const { node } = find(firstData, secondData, v);
-    console.log(node);
-    return node;
+    const { nodeBuilder } = find(firstData, secondData, v);
+    const obj = {
+      key: v, oldValue: firstData[v], newValue: secondData[v], func: buildTree,
+    };
+    return nodeBuilder(obj);
   });
   return tree;
 };

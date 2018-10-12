@@ -10,6 +10,9 @@ const renderTree = (subast) => {
 
 const render = (ast) => {
   const result = ast.map((v) => {
+    if (v.type === 'parentNode') {
+      return render(v.children);
+    }
     if (v.type === 'newNode') {
       return `  + ${v.name}: ${(v.newValue)}`;
     }
