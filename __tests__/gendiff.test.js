@@ -37,9 +37,9 @@ const allTests = () => {
   ];
 
   describe.each(tests)('gendiff test',
-    (name, before, after, result) => {
+    (name, before, after, result, format) => {
       test(name, () => {
-        expect(genDiff(before, after)).toEqual(result);
+        expect(genDiff(before, after, format)).toEqual(result);
       });
     });
 };

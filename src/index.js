@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import parse from './parsers';
-import render from './render';
+import render from './renders';
 
 const readData = (pathToFile) => {
   const read = fs.readFileSync(pathToFile, 'utf-8');
@@ -57,10 +57,10 @@ const buildTree = (firstData, secondData) => {
   return tree;
 };
 
-const genDiff = (firstConfigPath, secondConfigPath) => {
+const genDiff = (firstConfigPath, secondConfigPath, format) => {
   const before = readData(firstConfigPath);
   const after = readData(secondConfigPath);
-  return render(buildTree(before, after));
+  return render(buildTree(before, after), format);
 };
 
 export default genDiff;
