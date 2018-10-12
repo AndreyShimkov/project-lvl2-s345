@@ -15,6 +15,8 @@
 
 ## Using
 
+### json , yml and ini formats supported
+
 JSON documents:
 
 [![asciicast](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR.png)](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR)
@@ -26,3 +28,17 @@ YAML documents:
 INI documents:
 
 [![asciicast](https://asciinema.org/a/vxVw2TsyHiey6w17jqRMdvkYX.png)](https://asciinema.org/a/vxVw2TsyHiey6w17jqRMdvkYX)
+
+### output formats: tree and plain
+
+format 'tree'
+
+> gendiff <first_config> <second_config> [-f tree] 
+
+[![asciicast](https://asciinema.org/a/jmtjaHzOS38115LFJ32gRxC6Q.png)](https://asciinema.org/a/jmtjaHzOS38115LFJ32gRxC6Q)
+
+format 'plain'
+
+> gendiff <first_config> <second_config> -f plain
+
+[![asciicast](https://asciinema.org/a/CHGlEK2rhUXguFouAuFEyJY0z.png)](https://asciinema.org/a/CHGlEK2rhUXguFouAuFEyJY0z)
