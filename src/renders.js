@@ -1,9 +1,11 @@
 import treeRender from './treeRender';
 import plainRender from './plainRender';
+import jsonRender from './jsonRender';
 
 const renders = {
   tree: treeRender,
-  plain: (a, b) => plainRender(a, b),
+  plain: plainRender,
+  json: jsonRender,
 };
 
 const rendering = (data, format) => renders[format](data);
