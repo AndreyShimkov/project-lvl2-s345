@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import parse from './parsers';
-import render from './renders';
+import render from './renders/renders';
 
 const readData = (pathToFile) => {
   const read = fs.readFileSync(pathToFile, 'utf-8');
