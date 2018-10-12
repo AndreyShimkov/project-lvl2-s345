@@ -12,7 +12,7 @@ const buildTree = (object, sepor) => {
 };
 
 const render = (ast, separator = '') => {
-  const result = ast.map((v) => {
+  const firstMap = ast.map((v) => {
     switch (v.type) {
       case 'parentNode':
         return `${separator}    ${v.name}: ${render(v.children, `${separator}    `)}`;
@@ -21,11 +21,13 @@ const render = (ast, separator = '') => {
       case 'deletedNode':
         return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`;
       case 'changedNode':
-        return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}\n${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
+        return [`${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`,
+          `${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`];
       default:
         return `${separator}    ${v.name}: ${v.oldValue}`;
     }
   });
+  const result = _.flattenDeep(firstMap);
   return `{\n${result.join('\n')}\n${separator}}`;
 };
 
