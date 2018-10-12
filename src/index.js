@@ -10,44 +10,54 @@ const readData = (pathToFile) => {
   return parse(read, extname);
 };
 
+const buildTree = (firstData, secondData) => {
+  const firstKeys = Object.keys(firstData);
+  const secondKeys = Object.keys(secondData);
+  const allKeys = _.union(firstKeys, secondKeys);
+
+  const tree = allKeys.map((v) => {
+    const changeNode = [
+      {
+        check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
+          && (_.isObject(data1) && _.isObject(data2)),
+        node: {
+          type: 'unchangedNode', name: v, children: [],
+        },
+      }, {
+        check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
+          && (data1[key] === data2[key]),
+        node: {
+          type: 'unchangedNode', name: v, oldValue: firstData[v], children: [],
+        },
+      }, {
+        check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
+          && (data1[key] !== data2[key]),
+        node: {
+          type: 'changedNode', name: v, oldValue: firstData[v], newValue: secondData[v], children: [],
+        },
+      }, {
+        check: (data1, data2, key) => (_.has(data1, key) && !_.has(data2, key)),
+        node: {
+          type: 'deletedNode', name: v, oldValue: firstData[v], children: [],
+        },
+      }, {
+        check: (data1, data2, key) => (!_.has(data1, key) && _.has(data2, key)),
+        node: {
+          type: 'newNode', name: v, newValue: secondData[v], children: [],
+        },
+      }];
+    const find = (data1, data2, key) => changeNode.find(({ check }) => check(data1, data2, key));
+    const { node } = find(firstData, secondData, v);
+    console.log(node);
+    return node;
+  });
+  return tree;
+};
+
 const genDiff = (firstConfigPath, secondConfigPath) => {
-  const firstData1 = readData(firstConfigPath);
-  const secondData1 = readData(secondConfigPath);
-
-  const buildTree = (firstData, secondData) => {
-    const firstKeys = Object.keys(firstData);
-    const secondKeys = Object.keys(secondData);
-    const allKeys = _.union(firstKeys, secondKeys);
-
-    const tree = allKeys.map((v) => {
-      const node = {
-        name: v,
-      };
-
-      if (_.has(firstData, v) && _.has(secondData, v)) {
-        if (typeof firstData[v] === 'object' && typeof secondData[v] === 'object') {
-          node.children = buildTree(firstData[v], secondData[v]);
-        } else if (firstData[v] === secondData[v]) {
-          node.constValue = firstData[v];
-        } else {
-          node.oldValue = firstData[v];
-          node.newValue = secondData[v];
-        }
-      }
-      if (_.has(firstData, v) && !_.has(secondData, v)) {
-        node.oldValue = firstData[v];
-      }
-      if (!_.has(firstData, v) && _.has(secondData, v)) {
-        node.newValue = secondData[v];
-      }
-      return node;
-    });
-    return tree;
-  };
-  const result = buildTree(firstData1, secondData1);
-
-  const result1 = `{\n${render(result, '  ')}\n}`;
-  return result1;
+  const before = readData(firstConfigPath);
+  const after = readData(secondConfigPath);
+  return render(buildTree(before, after));
 };
 
 export default genDiff;

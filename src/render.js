@@ -1,33 +1,27 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 
-const renderTree = (item, separatorIn) => {
-  const itemKeys = Object.keys(item);
-  const tree = itemKeys.map((element) => {
-    if (typeof item[element] === 'object') {
-      return `${separatorIn}    ${element}: {\n${renderTree(item[element], `${separatorIn}  `)}\n    }`;
-    }
-    return `{\n${separatorIn}    ${element}: ${item[element]}\n${separatorIn}}`;
-  });
-  return tree;
+const renderTree = (subast) => {
+  if (!(Object.prototype.toString.call(subast) === 'object Array')) {
+    return subast;
+  }
+  const result = subast.map(item => ((Object.prototype.toString.call(subast) === 'object Array') ? renderTree(item) : `    ${item.name}: ${item.oldValue}`));
+  return result.join('\n');
 };
 
-const render = (ast, separator) => {
-  const mapped = ast.map((v) => {
-    if (_.has(v, 'children')) {
-      return `${separator}  ${v.name}: {\n${render(v.children, `${separator}    `)}\n${separator}  }`;
+const render = (ast) => {
+  const result = ast.map((v) => {
+    if (v.type === 'newNode') {
+      return `  + ${v.name}: ${(v.newValue)}`;
     }
-    if (_.has(v, 'constValue')) {
-      return `${separator}  ${v.name}: ${v.constValue}`;
+    if (v.type === 'deletedNode') {
+      return `  - ${v.name}: ${(v.oldValue)}`;
     }
-    if (_.has(v, 'oldValue') && _.has(v, 'newValue')) {
-      return `${separator}- ${v.name}: ${(typeof v.oldValue === 'object' ? renderTree(v.oldValue, `  ${separator}`) : v.oldValue)}\n${separator}+ ${v.name}: ${(typeof v.newValue === 'object' ? renderTree(v.newValue, `  ${separator}`) : v.newValue)}`;
+    if (v.type === 'unchangedNode') {
+      return `    ${v.name}: ${v.oldValue}`;
     }
-    if (_.has(v, 'oldValue')) {
-      return `${separator}- ${v.name}: ${(typeof v.oldValue === 'object' ? renderTree(v.oldValue, `  ${separator}`) : v.oldValue)}`;
-    }
-    return `${separator}+ ${v.name}: ${(typeof v.newValue === 'object' ? renderTree(v.newValue, `  ${separator}`) : v.newValue)}`;
+    return `  - ${v.name}: ${v.oldValue}\n  + ${v.name}: ${v.newValue}`;
   });
-  return mapped.join('\n');
+  return `{\n${result.join('\n')}\n}`;
 };
 
 export default render;

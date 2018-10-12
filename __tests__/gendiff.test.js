@@ -1,42 +1,47 @@
 import fs from 'fs';
 import genDiff from '../src';
 
-const beforeJSON = '__tests__/__fixtures__/before.json';
-const afterJSON = '__tests__/__fixtures__/after.json';
+const path = '__tests__/__fixtures__/';
 
-const beforeTreeJSON = '__tests__/__fixtures__/beforeTree.json';
-const afterTreeJSON = '__tests__/__fixtures__/afterTree.json';
+const beforeJSON = `${path}before.json`;
+const afterJSON = `${path}after.json`;
 
-const beforeYAML = '__tests__/__fixtures__/before.yml';
-const afterYAML = '__tests__/__fixtures__/after.yml';
+const beforeTreeJSON = `${path}beforeTree.json`;
+const afterTreeJSON = `${path}afterTree.json`;
+/*
+const beforeYAML = `${path}before.yml`;
+const afterYAML = `${path}after.yml`;
 
-const beforeTreeYAML = '__tests__/__fixtures__/beforeTree.yml';
-const afterTreeYAML = '__tests__/__fixtures__/afterTree.yml';
+const beforeTreeYAML = `${path}beforeTree.yml`;
+const afterTreeYAML = `${path}afterTree.yml`;
 
-const beforeINI = '__tests__/__fixtures__/before.ini';
-const afterINI = '__tests__/__fixtures__/after.ini';
+const beforeINI = `${path}before.ini`;
+const afterINI = `${path}after.ini`;
 
-const beforeTreeINI = '__tests__/__fixtures__/beforeTree.ini';
-const afterTreeINI = '__tests__/__fixtures__/afterTree.ini';
-
-const simpleResultPath = '__tests__/__fixtures__/simpleTestResult.txt';
-const treeResultPath = '__tests__/__fixtures__/resultTree.txt';
+const beforeTreeINI = `${path}beforeTree.ini`;
+const afterTreeINI = `${path}afterTree.ini`;
+*/
+const simpleResultPath = `${path}simpleTestResult.txt`;
+const treeResultPath = `${path}resultTree.txt`;
 
 const allTests = () => {
   const simpleResult = fs.readFileSync(simpleResultPath, 'utf-8');
   const treeResult = fs.readFileSync(treeResultPath, 'utf-8');
+  const tests = [
+    ['JSON', beforeJSON, afterJSON, simpleResult],
+    // ['YAML', beforeYAML, afterYAML, simpleResult],
+    // ['INI', beforeINI, afterINI, simpleResult],
+    ['jsonTREE', beforeTreeJSON, afterTreeJSON, treeResult],
+    // ['yamlTREE', beforeTreeYAML, afterTreeYAML, treeResult],
+    // ['iniTREE', beforeTreeINI, afterTreeINI, treeResult],
+  ];
 
-  const singleTest = (name, before, after, result) => {
-    test(name, () => {
-      expect(genDiff(before, after)).toEqual(result);
+  describe.each(tests)('gendiff test',
+    (name, before, after, result) => {
+      test(name, () => {
+        expect(genDiff(before, after)).toEqual(result);
+      });
     });
-  };
-  singleTest('JSON', beforeJSON, afterJSON, simpleResult);
-  singleTest('YAML', beforeYAML, afterYAML, simpleResult);
-  singleTest('INI', beforeINI, afterINI, simpleResult);
-  singleTest('jsonTREE', beforeTreeJSON, afterTreeJSON, treeResult);
-  singleTest('yamlTREE', beforeTreeYAML, afterTreeYAML, treeResult);
-  singleTest('iniTREE', beforeTreeINI, afterTreeINI, treeResult);
 };
 
 allTests();
