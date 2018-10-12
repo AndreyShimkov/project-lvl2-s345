@@ -13,19 +13,18 @@ const buildTree = (object, sepor) => {
 
 const render = (ast, separator = '') => {
   const result = ast.map((v) => {
-    if (v.type === 'parentNode') {
-      return `${separator}    ${v.name}: ${render(v.children, `${separator}    `)}`;
+    switch (v.type) {
+      case 'parentNode':
+        return `${separator}    ${v.name}: ${render(v.children, `${separator}    `)}`;
+      case 'newNode':
+        return `${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
+      case 'deletedNode':
+        return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`;
+      case 'changedNode':
+        return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}\n${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
+      default:
+        return `${separator}    ${v.name}: ${v.oldValue}`;
     }
-    if (v.type === 'newNode') {
-      return `${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
-    }
-    if (v.type === 'deletedNode') {
-      return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`;
-    }
-    if (v.type === 'changedNode') {
-      return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}\n${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
-    }
-    return `${separator}    ${v.name}: ${v.oldValue}`;
   });
   return `{\n${result.join('\n')}\n${separator}}`;
 };
