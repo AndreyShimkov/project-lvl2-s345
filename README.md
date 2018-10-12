@@ -42,3 +42,9 @@ format 'plain'
 > gendiff <first_config> <second_config> -f plain
 
 [![asciicast](https://asciinema.org/a/CHGlEK2rhUXguFouAuFEyJY0z.png)](https://asciinema.org/a/CHGlEK2rhUXguFouAuFEyJY0z)
+
+format json
+
+> gendiff <first_config> <second_config> -f json
+
+[![asciicast](https://asciinema.org/a/OqtuwYOMg0FQR02fbu3X7OS7W.png)](https://asciinema.org/a/OqtuwYOMg0FQR02fbu3X7OS7W)
