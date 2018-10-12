@@ -57,7 +57,7 @@ const buildTree = (firstData, secondData) => {
   return tree;
 };
 
-const genDiff = (firstConfigPath, secondConfigPath, format) => {
+const genDiff = (firstConfigPath, secondConfigPath, format = 'tree') => {
   const before = readData(firstConfigPath);
   const after = readData(secondConfigPath);
   return render(buildTree(before, after), format);
