@@ -1,6 +1,6 @@
-import treeRender from './treeRender';
-import plainRender from './plainRender';
-import jsonRender from './jsonRender';
+import treeRender from './treeRenderer';
+import plainRender from './plainRenderer';
+import jsonRender from './jsonRenderer';
 
 const renders = {
   tree: treeRender,

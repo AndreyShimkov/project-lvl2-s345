@@ -11,20 +11,21 @@ const buildTree = (object, sepor) => {
   return `{\n${sepor}    ${result}\n${sepor}}`;
 };
 
+const stringify = (sign, name, value, separator) => `${separator}  ${sign} ${name}: ${(_.isObject(value) ? buildTree(value, `${separator}    `) : value)}`;
+
 const render = (ast, separator = '') => {
   const firstMap = ast.map((v) => {
     switch (v.type) {
       case 'parentNode':
-        return `${separator}    ${v.name}: ${render(v.children, `${separator}    `)}`;
+        return stringify(' ', v.name, render(v.children, `${separator}    `), separator);
       case 'newNode':
-        return `${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`;
+        return stringify('+', v.name, v.newValue, separator);
       case 'deletedNode':
-        return `${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`;
+        return stringify('-', v.name, v.oldValue, separator);
       case 'changedNode':
-        return [`${separator}  - ${v.name}: ${_.isObject(v.oldValue) ? buildTree(v.oldValue, `${separator}    `) : v.oldValue}`,
-          `${separator}  + ${v.name}: ${_.isObject(v.newValue) ? buildTree(v.newValue, `${separator}    `) : v.newValue}`];
+        return [stringify('-', v.name, v.oldValue, separator), stringify('+', v.name, v.newValue, separator)];
       default:
-        return `${separator}    ${v.name}: ${v.oldValue}`;
+        return stringify(' ', v.name, v.oldValue, separator);
     }
   });
   const result = _.flatten(firstMap);
