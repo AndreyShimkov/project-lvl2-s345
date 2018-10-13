@@ -1,12 +1,12 @@
 import _ from 'lodash';
 
-const changeValue = val => (_.isObject(val) ? '[complex value]' : val);
+const stringify = val => (_.isObject(val) ? '[complex value]' : val);
 
 const changeNode = {
   parentNode: (path, node, fn) => fn(node.children, `${path}${node.name}.`),
-  newNode: (path, node) => `Property '${path}${node.name}' was added with value: '${changeValue(node.newValue)}'`,
+  newNode: (path, node) => `Property '${path}${node.name}' was added with value: '${stringify(node.newValue)}'`,
   deletedNode: (path, node) => `Property '${path}${node.name}' was removed`,
-  changedNode: (path, node) => `Property '${path}${node.name}' was updated from '${changeValue(node.oldValue)}' to '${changeValue(node.newValue)}'`,
+  changedNode: (path, node) => `Property '${path}${node.name}' was updated from '${stringify(node.oldValue)}' to '${stringify(node.newValue)}'`,
 };
 
 const render = (ast, path = '') => {

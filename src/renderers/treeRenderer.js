@@ -24,8 +24,10 @@ const render = (ast, separator = '') => {
         return stringify('-', v.name, v.oldValue, separator);
       case 'changedNode':
         return [stringify('-', v.name, v.oldValue, separator), stringify('+', v.name, v.newValue, separator)];
-      default:
+      case 'unchangedNode':
         return stringify(' ', v.name, v.oldValue, separator);
+      default:
+        return null; // unknow node
     }
   });
   const result = _.flatten(firstMap);
