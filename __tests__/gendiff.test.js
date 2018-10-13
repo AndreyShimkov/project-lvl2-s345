@@ -23,10 +23,12 @@ const afterTreeINI = `${path}afterTree.ini`;
 
 const simpleResultPath = `${path}simpleTestResult.txt`;
 const treeResultPath = `${path}resultTree.txt`;
+const plainResultPath = `${path}plainResult.txt`;
 
 const allTests = () => {
   const simpleResult = fs.readFileSync(simpleResultPath, 'utf-8');
   const treeResult = fs.readFileSync(treeResultPath, 'utf-8');
+  const plainResult = fs.readFileSync(plainResultPath, 'utf-8');
   const tests = [
     ['JSON', beforeJSON, afterJSON, simpleResult],
     ['YAML', beforeYAML, afterYAML, simpleResult],
@@ -34,6 +36,7 @@ const allTests = () => {
     ['jsonTREE', beforeTreeJSON, afterTreeJSON, treeResult],
     ['yamlTREE', beforeTreeYAML, afterTreeYAML, treeResult],
     ['iniTREE', beforeTreeINI, afterTreeINI, treeResult],
+    ['plainJSON', beforeTreeJSON, afterTreeJSON, plainResult, 'plain'],
   ];
 
   describe.each(tests)('gendiff test',
