@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import parse from './parsers';
-import render from './renderers/renderers';
+import render from './renderers';
 
 const readData = (pathToFile) => {
   const read = fs.readFileSync(pathToFile, 'utf-8');
@@ -15,7 +15,7 @@ const changeNode = [
     check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
       && (_.isObject(data1[key]) && _.isObject(data2[key])),
     nodeBuilder: obj => ({
-      type: 'parentNode', name: obj.key, children: [...obj.func(obj.oldValue, obj.newValue)],
+      type: 'parentNode', name: obj.key, children: obj.func(obj.oldValue, obj.newValue),
     }),
   }, {
     check: (data1, data2, key) => (_.has(data1, key) && _.has(data2, key))
