@@ -11,7 +11,7 @@
 
 > gendiff -h
 
-[![asciicast](https://asciinema.org/a/xFBAVxxPglyFzGMGMXmV7mYEJ.png)](https://asciinema.org/a/xFBAVxxPglyFzGMGMXmV7mYEJ)
+[![asciicast](https://asciinema.org/a/X0y6erQ4NWjX1QvRz97MUZL50.png)](https://asciinema.org/a/X0y6erQ4NWjX1QvRz97MUZL50)
 
 ## Using
 
@@ -19,32 +19,32 @@
 
 JSON documents:
 
-[![asciicast](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR.png)](https://asciinema.org/a/yGzi4005NZwOSWLvB42JK6uXR)
+[![asciicast](https://asciinema.org/a/lMpQz4e0knP0fYUzeEpaMYzBm.png)](https://asciinema.org/a/lMpQz4e0knP0fYUzeEpaMYzBm)
 
 YAML documents:
 
-[![asciicast](https://asciinema.org/a/pOQiovekD4DoVSoWnklnM9WbJ.png)](https://asciinema.org/a/pOQiovekD4DoVSoWnklnM9WbJ)
+[![asciicast](https://asciinema.org/a/JDBuEwGEB3vLxaCYrwGVA5CCr.png)](https://asciinema.org/a/JDBuEwGEB3vLxaCYrwGVA5CCr)
 
 INI documents:
 
-[![asciicast](https://asciinema.org/a/vxVw2TsyHiey6w17jqRMdvkYX.png)](https://asciinema.org/a/vxVw2TsyHiey6w17jqRMdvkYX)
+[![asciicast](https://asciinema.org/a/oBbcjY3tdHWdWSc8s0bYU921r.png)](https://asciinema.org/a/oBbcjY3tdHWdWSc8s0bYU921r)
 
-### output formats: tree and plain
+### output formats: tree, plain and json
 
 format 'tree'
 
 > gendiff <first_config> <second_config> [-f tree] 
 
-[![asciicast](https://asciinema.org/a/jmtjaHzOS38115LFJ32gRxC6Q.png)](https://asciinema.org/a/jmtjaHzOS38115LFJ32gRxC6Q)
+[![asciicast](https://asciinema.org/a/8fM8hnNCTpUjFiyeipSnkkFBm.png)](https://asciinema.org/a/8fM8hnNCTpUjFiyeipSnkkFBm)
 
 format 'plain'
 
 > gendiff <first_config> <second_config> -f plain
 
-[![asciicast](https://asciinema.org/a/CHGlEK2rhUXguFouAuFEyJY0z.png)](https://asciinema.org/a/CHGlEK2rhUXguFouAuFEyJY0z)
+[![asciicast](https://asciinema.org/a/Edw02ZzmwSL6EMYopeMU5lXjR.png)](https://asciinema.org/a/Edw02ZzmwSL6EMYopeMU5lXjR)
 
-format json
+format 'json'
 
 > gendiff <first_config> <second_config> -f json
 
-[![asciicast](https://asciinema.org/a/OqtuwYOMg0FQR02fbu3X7OS7W.png)](https://asciinema.org/a/OqtuwYOMg0FQR02fbu3X7OS7W)
+[![asciicast](https://asciinema.org/a/GuV9ZvliuBCgOd1pdTsREHve2.png)](https://asciinema.org/a/GuV9ZvliuBCgOd1pdTsREHve2)
